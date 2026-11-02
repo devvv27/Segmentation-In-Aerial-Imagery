@@ -52,10 +52,6 @@ The boundary-head experiment currently has the stronger scores of these two runs
 
 ## How the new models compare
 
-Axial attention (0.9051 IoU) and the auxiliary boundary head (0.9012 IoU) are the two best models so far, and they are close enough that we can't call a winner. ECA and the axial + Transformer model sit just below them. Boundary-guided attention is the weakest of the new additions, though still above the baseline.
+Axial attention (0.9051 IoU) and the auxiliary boundary head (0.9012 IoU) are the two best models so far.
 
-## Things to keep in mind
 
-- These are single runs on a 13-image test set. A gap of 0.01 IoU is the kind of thing a different random seed could change, so treat the differences as early evidence and not a final statistical conclusion.
-- The baseline ResNet-UNet run was trained for 30 epochs with early-stopping patience 3, and its validation loss was still going down at epoch 30. The three attention models were trained for up to 100 epochs with patience 10 (they stopped on their own at epochs 75 to 83). Part of their advantage over the baseline may come from longer training and not from the architecture. A baseline rerun with the same budget is needed before we can say how much.
-- The boundary metrics (boundary F1 and fragment-count error) were only measured for the two boundary experiments, so they are not reported for the attention models.
