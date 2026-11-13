@@ -38,4 +38,4 @@ This is the same setup as Experiment 2. The models are trained only on the crowd
 | + Boundary-guided attention | **0.4217** | **0.6969** | **0.5933** | **0.8560** | 0.4539 | **0.5933** |
 | + StyleGate | 0.2552 | 0.6093 | 0.4066 | 0.7295 | 0.2819 | 0.4066 |
 
-The baseline row is the same model as ResNet-UNet in Experiment 2 (IoU 0.3559). Recall is low for every model, so most panels are missed.
+
