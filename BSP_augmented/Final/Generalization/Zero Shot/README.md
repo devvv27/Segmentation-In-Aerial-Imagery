@@ -23,9 +23,7 @@ This is the same setup as Experiment 2. The models are trained only on the crowd
 | + Boundary-guided attention | 0.8498 | 0.9237 | 0.9188 | 0.9253 | 0.9123 | 0.9188 |
 | + StyleGate | 0.8466 | 0.9221 | 0.9169 | 0.9243 | 0.9096 | 0.9169 |
 
-## Unseen data (used only for testing)
 
-- **The 13 Bengaluru test images:** Haralur 2, HSR Layout 6 and Krystal Layout 5.
 
 ## Results on the Bengaluru Dataset
 
