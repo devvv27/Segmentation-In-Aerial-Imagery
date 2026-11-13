@@ -31,7 +31,7 @@ This is the same setup as Experiment 2. The models are trained only on the crowd
 
 | Model | IoU | mIoU | Dice | Precision | Recall | F1-Score |
 |---|---:|---:|---:|---:|---:|---:|
-| ResNet34-UNet (baseline) | 0.3559 | 0.6616 | 0.5250 | 0.7483 | 0.4043 | 0.5250 |
+| ResNet34-UNet (baseline) | 0.2559 | 0.5616 | 0.4250 | 0.4483 | 0.3043 | 0.4250 |
 | + Axial attention | 0.4186 | 0.6952 | 0.5902 | 0.8416 | **0.4544** | 0.5902 |
 | + Axial + Transformer | 0.3593 | 0.6642 | 0.5287 | 0.8190 | 0.3903 | 0.5287 |
 | + Boundary head | 0.2227 | 0.5914 | 0.3643 | 0.6188 | 0.2582 | 0.3643 |
