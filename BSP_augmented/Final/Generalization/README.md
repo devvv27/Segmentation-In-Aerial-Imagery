@@ -32,22 +32,30 @@ The `CD_ResnetUnet_*.ipynb` notebooks in this folder are the training notebooks 
 - **Seen in training:** 8,868 Google training images and 999 Google validation images. In step 3 the models also see 20 Bengaluru training images. 10 Bengaluru validation images are used to pick the checkpoint.
 - **Never seen:** 999 Google test images and the 13 Bengaluru test images (Haralur 2, HSR Layout 6, Krystal Layout 5).
 
-## Main results (IoU)
+## Main results (mIoU and F1 score)
 
-| Model | Google test (999) | Bengaluru, zero-shot (13 test) | Bengaluru, after fine-tuning (13 test) |
-|---|---:|---:|---:|
-| Baseline | 0.8518 | 0.3559 | 0.8365 |
-| Axial attention | 0.8526 | 0.4186 | 0.8452 |
-| Axial + Transformer | 0.8472 | 0.3593 | 0.8711 |
-| Boundary head | **0.8530** | 0.2227 | **0.9029** |
-| Boundary-guided attention | 0.8498 | **0.4217** | 0.8896 |
-| StyleGate | 0.8466 | 0.2552 | 0.8325 |
+| Model | Google test mIoU | Google test F1 | Bengaluru zero-shot mIoU | Bengaluru zero-shot F1 | Bengaluru fine-tuned mIoU | Bengaluru fine-tuned F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| Baseline | 0.9247 | 0.9200 | 0.6616 | 0.5250 | 0.9142 | 0.9110 |
+| Axial attention | 0.9252 | 0.9205 | 0.6952 | 0.5902 | 0.9188 | 0.9161 |
+| Axial + Transformer | 0.9224 | 0.9173 | 0.6642 | 0.5287 | 0.9323 | 0.9311 |
+| Boundary head | **0.9254** | **0.9207** | 0.5914 | 0.3643 | **0.9491** | **0.9490** |
+| Boundary-guided attention | 0.9237 | 0.9188 | **0.6969** | **0.5933** | 0.9421 | 0.9416 |
+| StyleGate | 0.9221 | 0.9169 | 0.6093 | 0.4066 | 0.9118 | 0.9086 |
+| ImageNet-only reference (no Google training) | n/a | n/a | n/a | n/a | 0.9409 | 0.9403 |
+
+Google results are on the 999 Google test images. All Bengaluru results are on the same 13 Bengaluru test images.
 
 ## What this shows
 
-- **On the Google data the models are almost identical.** All six are within 0.007 IoU of each other, so the extra modules make no real difference on the data the models were trained on. This matches what we saw on BSP.
-- **On unseen Bengaluru images some of them clearly help.** Axial attention and boundary-guided attention score about 0.06 IoU higher than the baseline without any retraining. Axial attention is the clearest case: the same score as the baseline on Google, but noticeably better on Bengaluru.
-- **Not every change helps.** The Transformer version is about the same as the baseline, while the boundary head and StyleGate do worse than the baseline on Bengaluru before fine-tuning.
-- **Fine-tuning on 20 Bengaluru images closes most of the gap for all of them.** Every model ends up between 0.83 and 0.90 IoU, with the boundary head highest at 0.9029.
+**On the Google data the models are almost identical.** All six are between 0.9221 and 0.9254 mIoU. The extra modules make no real difference on the kind of data the models were trained on, which matches what we saw on BSP.
 
-The full tables are in the README of each folder.
+**Without retraining, some of the improved models clearly generalise better.** Axial attention and boundary-guided attention reach about 0.70 mIoU and 0.59 F1 on Bengaluru, compared with 0.66 and 0.53 for the baseline. Axial attention is the clearest case: it scores the same as the baseline on Google but noticeably better on Bengaluru. Both models are also more precise (0.84 and 0.86 against 0.75) and find more of the panels.
+
+**Not every change helps.** The Transformer version stays at the baseline's level. The boundary head and StyleGate transfer worse than the baseline before fine-tuning.
+
+**Fine-tuning on just 20 Bengaluru images closes most of the gap.** Every model jumps from 0.59 to 0.70 mIoU up to 0.91 to 0.95 mIoU. The boundary head, which transferred worst at first, ends up best with 0.9491 mIoU and 0.9490 F1, followed by boundary-guided attention (0.9421 and 0.9416) and the Transformer version (0.9323 and 0.9311).
+
+**Google pretraining works best together with a better architecture.** The ImageNet-only reference reaches 0.9409 mIoU. That is higher than the fine-tuned plain baseline (0.9142), so Google pretraining alone doesn't help the plain ResNet-UNet. The two boundary models, however, finish above the reference.
+
+These are single runs on 13 test images, so small differences between the fine-tuned models should be read with care. The full tables are in the README of each folder.
