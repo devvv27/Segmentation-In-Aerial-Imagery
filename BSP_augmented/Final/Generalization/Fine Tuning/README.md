@@ -45,21 +45,3 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, wit
 | + StyleGate | 0.8325 | 0.9118 | 0.9086 | 0.8568 | **0.9671** |
 | ResNet34-UNet, ImageNet init | 0.8874 | 0.9409 | 0.9403 | 0.9157 | 0.9664 |
 
-## 3. IoU by layout after fine-tuning
-
-| Model | Haralur (2 test) | HSR (6 test) | Krystal (5 test) | Validation IoU (10) |
-|---|---:|---:|---:|---:|
-| ResNet34-UNet (baseline) | 0.8194 | 0.8385 | 0.8405 | 0.8313 |
-| + Axial attention | 0.8610 | 0.8151 | 0.8601 | 0.8222 |
-| + Axial + Transformer | 0.8273 | 0.8326 | 0.9096 | 0.8057 |
-| + Boundary head | 0.8507 | **0.8672** | 0.9413 | 0.8254 |
-| + Boundary-guided attention | 0.8473 | 0.8434 | 0.9318 | **0.8804** |
-| + StyleGate | **0.9129** | 0.7248 | 0.8891 | 0.7766 |
-| ResNet34-UNet, ImageNet init | 0.8666 | 0.8141 | **0.9422** | 0.7873 |
-
-The Haralur column rests on only 2 test images, so treat it with care.
-
-## Takeaways
-
-- Fine-tuning on just 20 local images lifts every Google-trained model from 0.22 to 0.42 IoU up to 0.83 to 0.90 IoU.
-- The final scores are close together and the validation and test rankings disagree. With only 10 validation and 13 test images, the differences between models after fine-tuning are within noise.
