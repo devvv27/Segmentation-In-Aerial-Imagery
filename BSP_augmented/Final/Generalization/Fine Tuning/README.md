@@ -8,7 +8,7 @@ This folder fine-tunes the six Google-trained checkpoints (see `README_Results.m
 | `bsp-fewshot-finetuning.ipynb` | Executed Kaggle run of `BSP_FineTune_20.ipynb` |
 | `BSP_FewShot_FineTuning.ipynb` | Source for a larger grid: k = 5, 10 or 20 images, with and without augmentation, Google or ImageNet starting weights. **Not run yet.** |
 
-Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, up to 200 epochs, early stopping with patience 10. The boundary models also train their boundary head with weight 0.2.
+Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, with early stopping on the validation set. The boundary models also train their boundary head with weight 0.2.
 
 ## Seen data (used in training)
 
@@ -35,14 +35,31 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, up 
 
 ## 2. Full test metrics after fine-tuning (unseen test 13)
 
-| Model | IoU | mIoU | Dice | Precision | Recall | Epochs run | Best epoch |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| ResNet34-UNet (baseline) | 0.8365 | 0.9142 | 0.9110 | 0.9111 | 0.9108 | 19 | 9 |
-| + Axial attention | 0.8452 | 0.9188 | 0.9161 | 0.9241 | 0.9082 | 34 | 24 |
-| + Axial + Transformer | 0.8711 | 0.9323 | 0.9311 | 0.9110 | 0.9521 | 13 | 3 |
-| + Boundary head | **0.9029** | **0.9491** | **0.9490** | **0.9427** | 0.9554 | 17 | 7 |
-| + Boundary-guided attention | 0.8896 | 0.9421 | 0.9416 | 0.9267 | 0.9569 | 27 | 17 |
-| + StyleGate | 0.8325 | 0.9118 | 0.9086 | 0.8568 | **0.9671** | 15 | 5 |
-| ResNet34-UNet, ImageNet init | 0.8874 | 0.9409 | 0.9403 | 0.9157 | 0.9664 | 200 | 200 |
+| Model | IoU | mIoU | Dice | Precision | Recall |
+|---|---:|---:|---:|---:|---:|
+| ResNet34-UNet (baseline) | 0.8365 | 0.9142 | 0.9110 | 0.9111 | 0.9108 |
+| + Axial attention | 0.8452 | 0.9188 | 0.9161 | 0.9241 | 0.9082 |
+| + Axial + Transformer | 0.8711 | 0.9323 | 0.9311 | 0.9110 | 0.9521 |
+| + Boundary head | **0.9029** | **0.9491** | **0.9490** | **0.9427** | 0.9554 |
+| + Boundary-guided attention | 0.8896 | 0.9421 | 0.9416 | 0.9267 | 0.9569 |
+| + StyleGate | 0.8325 | 0.9118 | 0.9086 | 0.8568 | **0.9671** |
+| ResNet34-UNet, ImageNet init | 0.8874 | 0.9409 | 0.9403 | 0.9157 | 0.9664 |
 
+## 3. IoU by layout after fine-tuning
 
+| Model | Haralur (2 test) | HSR (6 test) | Krystal (5 test) | Validation IoU (10) |
+|---|---:|---:|---:|---:|
+| ResNet34-UNet (baseline) | 0.8194 | 0.8385 | 0.8405 | 0.8313 |
+| + Axial attention | 0.8610 | 0.8151 | 0.8601 | 0.8222 |
+| + Axial + Transformer | 0.8273 | 0.8326 | 0.9096 | 0.8057 |
+| + Boundary head | 0.8507 | **0.8672** | 0.9413 | 0.8254 |
+| + Boundary-guided attention | 0.8473 | 0.8434 | 0.9318 | **0.8804** |
+| + StyleGate | **0.9129** | 0.7248 | 0.8891 | 0.7766 |
+| ResNet34-UNet, ImageNet init | 0.8666 | 0.8141 | **0.9422** | 0.7873 |
+
+The Haralur column rests on only 2 test images, so treat it with care.
+
+## Takeaways
+
+- Fine-tuning on just 20 local images lifts every Google-trained model from 0.22 to 0.42 IoU up to 0.83 to 0.90 IoU.
+- The final scores are close together and the validation and test rankings disagree. With only 10 validation and 13 test images, the differences between models after fine-tuning are within noise.
