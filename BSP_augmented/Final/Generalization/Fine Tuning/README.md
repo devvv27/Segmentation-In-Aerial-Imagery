@@ -31,7 +31,7 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, wit
 | + Boundary head | 0.2227 | **0.9029** | **0.6802** | 0.3643 | **0.9490** |
 | + Boundary-guided attention | 0.4217 | 0.8896 | 0.4679 | 0.5933 | 0.9416 |
 | + StyleGate | 0.2552 | 0.8325 | 0.5774 | 0.4066 | 0.9086 |
-| ResNet34-UNet, ImageNet init (no Google pretraining) | n/a | 0.8874 | n/a | n/a | 0.9403 |
+
 
 ## 2. Full test metrics after fine-tuning (unseen test 13)
 
