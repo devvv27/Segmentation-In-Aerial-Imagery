@@ -27,7 +27,7 @@ This is the same setup as Experiment 2. The models are trained only on the crowd
 
 - **The 13 Bengaluru test images:** Haralur 2, HSR Layout 6 and Krystal Layout 5.
 
-## Results on the Bengaluru test set (13 images, no retraining)
+## Results on the Bengaluru Dataset
 
 | Model | IoU | mIoU | Dice | Precision | Recall | F1-Score |
 |---|---:|---:|---:|---:|---:|---:|
