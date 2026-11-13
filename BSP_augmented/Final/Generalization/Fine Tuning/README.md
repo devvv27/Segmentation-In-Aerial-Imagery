@@ -1,6 +1,6 @@
 # Fine Tuning: adapting Google-trained models to Bengaluru
 
-This folder fine-tunes the six Google-trained checkpoints (see `README_Results.md`) on the 20 Bengaluru training images. As a reference, it also trains an ImageNet-initialised ResNet34-UNet on the same 20 images.
+This is step 3 of the generalisation study (see the README in the parent folder). The six Google-trained checkpoints from `../Results` are fine-tuned on the 20 Bengaluru training images. As a reference, it also trains an ImageNet-initialised ResNet34-UNet on the same 20 images.
 
 | Notebook | What it is |
 |---|---|
@@ -25,17 +25,17 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, wit
 
 | Model | IoU before (zero-shot) | IoU after | Gain | F1 before | F1 after |
 |---|---:|---:|---:|---:|---:|
-| ResNet34-UNet (baseline) | 0.2559 | 0.8365 | 0.5806 | 0.4250 | 0.9110 |
+| ResNet34-UNet (baseline) | 0.3559 | 0.8365 | 0.4806 | 0.5250 | 0.9110 |
 | + Axial attention | 0.4186 | 0.8452 | 0.4266 | 0.5902 | 0.9161 |
 | + Axial + Transformer | 0.3593 | 0.8711 | 0.5118 | 0.5287 | 0.9311 |
 | + Boundary head | 0.2227 | **0.9029** | **0.6802** | 0.3643 | **0.9490** |
 | + Boundary-guided attention | 0.4217 | 0.8896 | 0.4679 | 0.5933 | 0.9416 |
 | + StyleGate | 0.2552 | 0.8325 | 0.5774 | 0.4066 | 0.9086 |
-
+| ResNet34-UNet, ImageNet init (no Google pretraining) | n/a | 0.8874 | n/a | n/a | 0.9403 |
 
 ## 2. Full test metrics after fine-tuning (unseen test 13)
 
-| Model | IoU | mIoU | Dice | Precision | Recall |
+| Model | IoU | mIoU | F1 score | Precision | Recall |
 |---|---:|---:|---:|---:|---:|
 | ResNet34-UNet (baseline) | 0.8365 | 0.9142 | 0.9110 | 0.9111 | 0.9108 |
 | + Axial attention | 0.8452 | 0.9188 | 0.9161 | 0.9241 | 0.9082 |
@@ -45,3 +45,21 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, wit
 | + StyleGate | 0.8325 | 0.9118 | 0.9086 | 0.8568 | **0.9671** |
 | ResNet34-UNet, ImageNet init | 0.8874 | 0.9409 | 0.9403 | 0.9157 | 0.9664 |
 
+## 3. IoU by layout after fine-tuning
+
+| Model | Haralur (2 test) | HSR (6 test) | Krystal (5 test) | Validation IoU (10) |
+|---|---:|---:|---:|---:|
+| ResNet34-UNet (baseline) | 0.8194 | 0.8385 | 0.8405 | 0.8313 |
+| + Axial attention | 0.8610 | 0.8151 | 0.8601 | 0.8222 |
+| + Axial + Transformer | 0.8273 | 0.8326 | 0.9096 | 0.8057 |
+| + Boundary head | 0.8507 | **0.8672** | 0.9413 | 0.8254 |
+| + Boundary-guided attention | 0.8473 | 0.8434 | 0.9318 | **0.8804** |
+| + StyleGate | **0.9129** | 0.7248 | 0.8891 | 0.7766 |
+| ResNet34-UNet, ImageNet init | 0.8666 | 0.8141 | **0.9422** | 0.7873 |
+
+The Haralur column rests on only 2 test images, so treat it with care.
+
+## Takeaways
+
+- Fine-tuning on just 20 local images lifts every Google-trained model from 0.22 to 0.42 IoU up to 0.83 to 0.90 IoU.
+- The final scores are close together and the validation and test rankings disagree. With only 10 validation and 13 test images, the differences between models after fine-tuning are within noise.
