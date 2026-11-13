@@ -1,5 +1,7 @@
 # Results: training on the crowdsourced Google dataset
 
+This is step 1 of the generalisation study (see the README in the parent folder). Every version of ResNet-UNet is trained here only on Google images, so that steps 2 and 3 can check how each one copes with Bengaluru.
+
 These are the executed Kaggle runs of the `CD_ResnetUnet_*.ipynb` notebooks. Each one trains a ResNet34-UNet variant on the crowdsourced Google Earth dataset. The saved checkpoints are later used in the Zero Shot and Fine Tuning folders. The plain ResNet34-UNet baseline was trained the same way in `CrowdSourcedDatasetResults/CD_UnetResnet.ipynb`.
 
 ## Seen data (used in training)
