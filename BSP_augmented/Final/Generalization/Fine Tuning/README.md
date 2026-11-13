@@ -25,7 +25,7 @@ Settings: batch size 5, AdamW with learning rate 2e-4 and weight decay 1e-2, wit
 
 | Model | IoU before (zero-shot) | IoU after | Gain | F1 before | F1 after |
 |---|---:|---:|---:|---:|---:|
-| ResNet34-UNet (baseline) | 0.2559 | 0.8365 | 0.4806 | 0.5250 | 0.9110 |
+| ResNet34-UNet (baseline) | 0.2559 | 0.8365 | 0.5806 | 0.4250 | 0.9110 |
 | + Axial attention | 0.4186 | 0.8452 | 0.4266 | 0.5902 | 0.9161 |
 | + Axial + Transformer | 0.3593 | 0.8711 | 0.5118 | 0.5287 | 0.9311 |
 | + Boundary head | 0.2227 | **0.9029** | **0.6802** | 0.3643 | **0.9490** |
